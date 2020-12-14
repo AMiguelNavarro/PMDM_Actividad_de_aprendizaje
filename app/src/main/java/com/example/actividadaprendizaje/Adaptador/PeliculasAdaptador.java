@@ -1,6 +1,7 @@
 package com.example.actividadaprendizaje.Adaptador;
 
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.R;
+import com.example.actividadaprendizaje.Vista.PeliculaFichaDescriptivaVista;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class PeliculasAdaptador extends RecyclerView.Adapter<PeliculasAdaptador.
     public PeliculasVistaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater
                     .from(parent.getContext())
-                    .inflate(R.layout.vista_peliculas_vista_row, parent, false);
+                    .inflate(R.layout.vista_peliculas, parent, false);
         return new PeliculasVistaHolder(v);
     }
 
@@ -45,6 +47,16 @@ public class PeliculasAdaptador extends RecyclerView.Adapter<PeliculasAdaptador.
         Picasso.get().load(urlBaseImagenes + pelicula.getImage()).into(holder.imagen);
         holder.titulo.setText(pelicula.getTitulo());
         holder.valoracion.setText(pelicula.getVote_average() + "★");
+
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), PeliculaFichaDescriptivaVista.class);
+            intent.putExtra("titulo",pelicula.getTitulo());
+            intent.putExtra("sinopsis",pelicula.getSinopsis());
+            intent.putExtra("imagen",pelicula.getImage());
+            v.getContext().startActivity(intent);
+
+        });
     }
 
     @Override

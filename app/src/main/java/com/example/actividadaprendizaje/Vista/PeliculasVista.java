@@ -1,6 +1,7 @@
 package com.example.actividadaprendizaje.Vista;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,6 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
     private PeliculasPresentador peliculasPresentador;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
-    private ImageView imagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         recycler = findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
 
-        gestorLayout = new LinearLayoutManager(this);
+        gestorLayout = new GridLayoutManager(this, 3);
 
         recycler.setLayoutManager(gestorLayout);
 
@@ -49,11 +49,6 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculas);
         recycler.setAdapter(adaptador);
 
-//        imagen.findViewById(R.id.imagen);
-//        imagen.setOnClickListener(v -> {
-//            Intent navegar = new Intent(getBaseContext(), LoginVista.class);
-//            startActivity(navegar);
-//        });
     }
 
     @Override
@@ -62,9 +57,6 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
     }
 
 
-    public void fichaDescriptiva () {
-
-    }
 }
 
 
