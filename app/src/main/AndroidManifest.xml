@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActividadAprendizaje">
-        <activity android:name=".Vista.PeliculaFichaDescriptivaVista"></activity>
+        <activity android:name=".Vista.PeliculasFiltradasGeneroVista"></activity>
+        <activity android:name=".Vista.PeliculaFichaDescriptivaVista" />
         <activity android:name=".Vista.PeliculasVista">
 
             <!-- Se le dice que el launcher arranque con la lista de pelis -->

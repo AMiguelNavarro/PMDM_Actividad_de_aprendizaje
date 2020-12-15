@@ -50,11 +50,12 @@ public class PeliculasAdaptador extends RecyclerView.Adapter<PeliculasAdaptador.
 
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), PeliculaFichaDescriptivaVista.class);
-            intent.putExtra("titulo",pelicula.getTitulo());
-            intent.putExtra("sinopsis",pelicula.getSinopsis());
-            intent.putExtra("imagen",pelicula.getImage());
-            v.getContext().startActivity(intent);
+            Intent navegar = new Intent(v.getContext(), PeliculaFichaDescriptivaVista.class);
+            navegar.putExtra("titulo",pelicula.getTitulo());
+            navegar.putExtra("sinopsis",pelicula.getSinopsis());
+            navegar.putExtra("imagen",pelicula.getImage());
+            navegar.putExtra("valoracion", pelicula.getVote_average());
+            v.getContext().startActivity(navegar);
 
         });
     }

@@ -22,14 +22,15 @@ public class PeliculaFichaDescriptivaVista extends AppCompatActivity {
 
         initComponents();
 
-        Intent intent = getIntent();
-        String image = intent.getStringExtra("imagen");
-        String tit = intent.getStringExtra("titulo");
-        String sinop = intent.getStringExtra("sinopsis");
-        String val = intent.getStringExtra("valoracion");
+        Intent navegar = getIntent();
+        String image = navegar.getStringExtra("imagen");
+        String tit = navegar.getStringExtra("titulo");
+        String sinop = navegar.getStringExtra("sinopsis");
+        String val = navegar.getStringExtra("valoracion");
 
         titulo.setText(tit);
         sinopsis.setText(sinop);
+        valoracion.setText(val + "★");
         String urlBaseImagenes = "https://image.tmdb.org/t/p/w500";
         Picasso.get().load(urlBaseImagenes + image).into(imagen);
 
