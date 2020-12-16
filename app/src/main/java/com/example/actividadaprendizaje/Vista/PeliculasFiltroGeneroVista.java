@@ -14,36 +14,46 @@ import android.widget.Toast;
 
 import com.example.actividadaprendizaje.Adaptador.PeliculasAdaptador;
 import com.example.actividadaprendizaje.Beans.Peliculas;
-import com.example.actividadaprendizaje.Contrato.PeliculasContrato;
-import com.example.actividadaprendizaje.Presentador.PeliculasPresentador;
+import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
+import com.example.actividadaprendizaje.Presentador.PeliculasFiltroGeneroPresentador;
 import com.example.actividadaprendizaje.R;
 
 import java.util.ArrayList;
 
-public class PeliculasVista extends AppCompatActivity implements PeliculasContrato.vista {
+public class PeliculasFiltroGeneroVista extends AppCompatActivity implements PeliculasFiltroGeneroContrato.vista {
 
-    private PeliculasPresentador peliculasPresentador;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
+    private PeliculasFiltroGeneroPresentador peliculasFiltroGeneroPresentador;
 
     private Spinner spinner;
     private String [] opcionesSpinner = {" ", "Acción", "Aventura","Animación", "Comedia","Crimen", "Documental","Drama", "Familia","Fantasía", "Historia","Terror", "Música","Misterio", "Romance",
-                                         "Ciencia Ficción", "Película de TV","Suspense", "Bélica","Western"};
+            "Ciencia Ficción", "Película de TV","Suspense", "Bélica","Western"};
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peliculas_vista_recycler);
+        setContentView(R.layout.activity_peliculas_filtradas_genero_vista_recycler);
 
-        peliculasPresentador = new PeliculasPresentador(this);
-        peliculasPresentador.getPeliculas();
+        Intent navegar = this.getIntent();
+        Bundle extra = navegar.getExtras();
+        String idGender = String.valueOf(extra.getInt("idGenero"));
+//        Toast.makeText(getBaseContext(), idGender, Toast.LENGTH_SHORT).show(); //COGE EL ID CORRECTAMENTE
+
+        peliculasFiltroGeneroPresentador = new PeliculasFiltroGeneroPresentador(this);
+        peliculasFiltroGeneroPresentador.getPeliculasFiltroGenero(idGender);
 
         cargarSpinner();
+
     }
 
-
     @Override
-    public void success(ArrayList<Peliculas> listaPeliculas) {
+    public void success(ArrayList<Peliculas> listaPeliculasGenero) {
+
         recycler = findViewById(R.id.recycler);
         recycler.setHasFixedSize(true);
 
@@ -52,15 +62,18 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         recycler.setLayoutManager(gestorLayout);
 
         // Crear un nuevo adaptador, que es el pintado para el usuario
-        PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculas);
+        PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculasGenero);
         recycler.setAdapter(adaptador);
 
     }
 
     @Override
-    public void error(String mensajeError) {
-        Toast.makeText(this, mensajeError, Toast.LENGTH_SHORT).show();
+    public void error(String error) {
+
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+
     }
+
 
 
     public void cargarSpinner() {
@@ -159,15 +172,8 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
                         break;
 
                 }
-                Toast.makeText(parent.getContext(), genero, Toast.LENGTH_SHORT).show();
-                //TODO navegar a la vista de pelis por genero, se le pasa el idGenero con putExtra, recoger en la vista
+                Toast.makeText(parent.getContext(), genero, Toast.LENGTH_LONG).show();
                 startActivity(navegar);
-
-
-
-
-                // TODO llamar al método para que busque solo las de ese género
-                // https://developers.themoviedb.org/3/discover/movie-discover Y FILTRAR POR IDGENERO
             }
 
             @Override
@@ -176,9 +182,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
             }
         });
     }
+
+
 }
-
-
-
-
 

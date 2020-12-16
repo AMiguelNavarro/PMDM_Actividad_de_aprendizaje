@@ -21,11 +21,13 @@ import java.util.ArrayList;
 public class PeliculasAdaptador extends RecyclerView.Adapter<PeliculasAdaptador.PeliculasVistaHolder> {
 
     private ArrayList<Peliculas> listaPeliculas;
+    private String idGenero;
 
 
     // Debe recibir 3 elementos: Lista de peliculas, ,
     public PeliculasAdaptador(ArrayList<Peliculas> listaPeliculas) {
         this.listaPeliculas = listaPeliculas;
+
     }
 
     @NonNull

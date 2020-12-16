@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActividadAprendizaje">
-        <activity android:name=".Vista.PeliculasFiltradasGeneroVista"></activity>
+        <activity android:name=".Vista.PeliculasFiltroGeneroVista"></activity>
         <activity android:name=".Vista.PeliculaFichaDescriptivaVista" />
         <activity android:name=".Vista.PeliculasVista">
 
