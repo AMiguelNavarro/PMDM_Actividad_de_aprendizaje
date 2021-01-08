@@ -55,6 +55,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculas);
         recycler.setAdapter(adaptador);
 
+
     }
 
     @Override

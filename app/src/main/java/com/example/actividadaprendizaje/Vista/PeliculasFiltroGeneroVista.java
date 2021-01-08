@@ -64,7 +64,7 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
         // Crear un nuevo adaptador, que es el pintado para el usuario
         PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculasGenero);
         recycler.setAdapter(adaptador);
-
+        
     }
 
     @Override
