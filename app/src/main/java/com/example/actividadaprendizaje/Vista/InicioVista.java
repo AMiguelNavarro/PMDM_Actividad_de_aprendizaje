@@ -12,11 +12,6 @@ public class InicioVista extends AppCompatActivity {
 
     private static final int SCREEN = 1;
 
-    // Url que muestra todos los campeones y la de filtrado
-    private final String URL = "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json";
-    private final String URL_FILTRADO_POR_CAMPEON = "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion/Aatrox.json";
-    private final String URL_IMAGENES = "http://ddragon.leagueoflegends.com/cdn/10.24.1/img/champion/Aatrox.png";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

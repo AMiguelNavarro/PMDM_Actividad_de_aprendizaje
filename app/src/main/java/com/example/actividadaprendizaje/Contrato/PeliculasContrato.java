@@ -1,5 +1,7 @@
 package com.example.actividadaprendizaje.Contrato;
 
+import android.content.Context;
+
 import com.example.actividadaprendizaje.Beans.Peliculas;
 
 import java.util.ArrayList;
@@ -12,7 +14,7 @@ public interface PeliculasContrato {
     }
 
     interface presentador{
-        void getPeliculas();
+        void getPeliculas(Context context);
     }
 
 
@@ -20,7 +22,7 @@ public interface PeliculasContrato {
     interface modelo{
 
         // Se le tiene que enviar el callback (camino de regreso)
-        void getPeliculasWS(OnPeliculasListener onPeliculasListener);
+        void getPeliculasWS(Context context, OnPeliculasListener onPeliculasListener);
 
         // Programacion reactiva
         interface OnPeliculasListener {
