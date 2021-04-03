@@ -1,5 +1,7 @@
 package com.example.actividadaprendizaje.Presentador;
 
+import android.content.Context;
+
 import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.Contrato.PeliculasContrato;
 import com.example.actividadaprendizaje.Modelo.PeliculasModelo;
@@ -20,9 +22,9 @@ public class PeliculasPresentador implements PeliculasContrato.presentador{
 
 
     @Override
-    public void getPeliculas() {
+    public void getPeliculas(Context context) {
 
-        peliculasModelo.getPeliculasWS(new PeliculasContrato.modelo.OnPeliculasListener() {
+        peliculasModelo.getPeliculasWS(context, new PeliculasContrato.modelo.OnPeliculasListener() {
             @Override
             public void onResolve(ArrayList<Peliculas> listaPeliculas) {
                 peliculasVista.success(listaPeliculas);

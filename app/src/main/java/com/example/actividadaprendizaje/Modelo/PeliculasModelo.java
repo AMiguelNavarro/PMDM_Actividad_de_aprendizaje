@@ -1,18 +1,16 @@
 package com.example.actividadaprendizaje.Modelo;
 
-import android.os.AsyncTask;
-import android.os.Handler;
+import android.content.Context;
 
 import com.example.actividadaprendizaje.Beans.Peliculas;
+import com.example.actividadaprendizaje.Beans.PeliculasApiResults;
 import com.example.actividadaprendizaje.Contrato.PeliculasContrato;
-import com.example.actividadaprendizaje.Utilidades.Post;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.actividadaprendizaje.retrofit.ApiClient;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class PeliculasModelo implements PeliculasContrato.modelo {
@@ -26,53 +24,28 @@ public class PeliculasModelo implements PeliculasContrato.modelo {
 //            final String URL = "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json"; // TODO probar con the API LOL si funciona
 
     @Override
-    public void getPeliculasWS(OnPeliculasListener onPeliculasListener) {
-        this.onPeliculasListener = onPeliculasListener;
-        TareaEnSegundoPLano hilo = new TareaEnSegundoPLano();
-        hilo.execute();
-    }
+    public void getPeliculasWS(Context context, OnPeliculasListener onPeliculasListener) {
+        ApiClient apiClient = new ApiClient(context);
+        final Call<PeliculasApiResults> peticion = apiClient.getPeliculas();
 
-
-    // Aquí va la cápsula que permite ir a la API, se pone un parámetro para cada parte del semaforo (rojo, amarillo y verde)
-    class TareaEnSegundoPLano extends AsyncTask<String, Integer, Boolean> {
-
-        /*
-         * SEMAFORO
-         *   ROJO -> doInBackground(); // STRING porque es la url donde va a ir la API
-         *   AMARILLO -> Notificar el % de cumplimiento // INTEGER porque es el progreso en numero entero
-         *   VERDE -> onPOstExecute(); Mostrar si ha ido bien o ha ido un error // BOOLEAN porque es ha ido bien, o ha ido mal
-         * */
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-
-            Post post = new Post();
-
-            try {
-                // Devuelve el objeto JSON
-                JSONObject listaObjetosPeliculasJSON = post.getServerDataGetObject(URL);
-                JSONArray listaPeliculasArraysJSON = listaObjetosPeliculasJSON.getJSONArray("results");
-                listaPeliculasArrayList = Peliculas.getArrayListFromJSON(listaPeliculasArraysJSON);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            // Devolver si ha ido bien o mal
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean respuesta) {
-
-            if (respuesta) {
-                if (listaPeliculasArrayList != null && listaPeliculasArrayList.size() > 0) {
-                    onPeliculasListener.onResolve(listaPeliculasArrayList);
-                } else {
-                    onPeliculasListener.onReject("Error al traer los datos del servidor");
+        // Al hacer enque retrofit lo mete en su cola de peticiones en un thread aparte y no en el principal
+        // Siempre hay que pasarle el Callback
+        peticion.enqueue(new Callback<PeliculasApiResults>() {
+            @Override
+            public void onResponse(Call<PeliculasApiResults> call, Response<PeliculasApiResults> response) {
+                // Si va bien
+                if (response != null && response.body() != null) {
+                    onPeliculasListener.onResolve(new ArrayList<Peliculas>(response.body().getResults()));
                 }
             }
-        }
 
-
+            @Override
+            public void onFailure(Call<PeliculasApiResults> call, Throwable t) {
+                // Si va mal
+                t.printStackTrace();
+                onPeliculasListener.onReject(t.getLocalizedMessage());
+            }
+        });
     }
+
 }

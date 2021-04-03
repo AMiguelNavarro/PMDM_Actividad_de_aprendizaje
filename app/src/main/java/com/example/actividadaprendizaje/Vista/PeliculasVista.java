@@ -36,7 +36,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         setContentView(R.layout.activity_peliculas_vista_recycler);
 
         peliculasPresentador = new PeliculasPresentador(this);
-        peliculasPresentador.getPeliculas();
+        peliculasPresentador.getPeliculas(this);
 
         cargarSpinner();
     }

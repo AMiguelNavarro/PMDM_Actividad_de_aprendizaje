@@ -1,5 +1,7 @@
 package com.example.actividadaprendizaje.Beans;
 
+import com.google.gson.annotations.SerializedName;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -16,7 +18,10 @@ public class Peliculas {
     private static final String VOTE_AVERAGE = "vote_average";
 
     private int id;
-    private String titulo, sinopsis, image, vote_average;
+    @SerializedName("title") private String titulo;
+    @SerializedName("overview")private String sinopsis;
+    @SerializedName("poster_path")private String image;
+    private String vote_average;
 
 
     public int getId() { return id; }
