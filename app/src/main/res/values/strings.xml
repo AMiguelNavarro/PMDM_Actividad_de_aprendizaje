@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ActividadAprendizaje</string>
+    <string name="activity_main_titulo_inicial">Trabajo final 2ª EV PMDM</string>
+    <string name="activity_main_nombre">Alberto Miguel Navarro</string>
+    <string name="activity_peliculas_filtradas_genero_texto_spinner">Filtrar por Género</string>
+    <string name="activity_login_vista_textfield_usuario">Usuario</string>
+    <string name="activity_login_vista_text_button_iniciar_sesion">Iniciar Sesión</string>
+    <string name="activity_login_vista_hint_password">Contraseña</string>
 </resources>

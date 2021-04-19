@@ -26,7 +26,7 @@
         android:textStyle="bold"
         android:textSize="25sp"
         android:layout_marginTop="25dp"
-        android:text="Trabajo final 1ª EV PMDM" />
+        android:text="@string/activity_main_titulo_inicial" />
 
     <TextView
         android:id="@+id/textView2"
@@ -35,7 +35,7 @@
         android:layout_gravity="center"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:text="Alberto Miguel Navarro" />
+        android:text="@string/activity_main_nombre" />
 </LinearLayout>
 
 

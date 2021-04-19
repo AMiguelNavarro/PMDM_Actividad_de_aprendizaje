@@ -21,7 +21,7 @@ public class InicioVista extends AppCompatActivity {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             // Cargar la segunda pantalla
-            Intent navegar = new Intent(getBaseContext(), PeliculasVista.class);
+            Intent navegar = new Intent(getBaseContext(), LoginVista.class);
             //Lanzar el intent
             startActivity(navegar);
         },5000);

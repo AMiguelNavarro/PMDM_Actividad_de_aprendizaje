@@ -26,7 +26,7 @@
         android:textSize="20sp"
         android:textAlignment="center"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="" />
     <TextView
         android:id="@+id/valoracion"
         android:layout_width="88dp"
@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:layout_marginTop="5dp"
-        android:text="TextView" />
+        android:text="" />
 
     <TextView
         android:id="@+id/sinopsis"
@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="TextView" />
+        android:text="" />
 
 
 </LinearLayout>
