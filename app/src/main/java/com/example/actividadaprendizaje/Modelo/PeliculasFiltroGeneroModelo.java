@@ -1,10 +1,13 @@
 package com.example.actividadaprendizaje.Modelo;
 
+import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.actividadaprendizaje.Beans.Peliculas;
+import com.example.actividadaprendizaje.Beans.PeliculasApiResults;
 import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
 import com.example.actividadaprendizaje.Utilidades.Post;
+import com.example.actividadaprendizaje.retrofit.ApiClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -12,58 +15,35 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class PeliculasFiltroGeneroModelo implements PeliculasFiltroGeneroContrato.modelo {
 
-    private String URL = "https://api.themoviedb.org/3/discover/movie?api_key=9452cdfc55151f2eef8682f0e78f4a77&language=es-ES&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres="; // Añadir idGenero al final
-    private ArrayList<Peliculas> listaPeliculasFiltroGenero;
-    private OnPeliculasFiltroGeneroListener onPeliculasFiltroGeneroListener;
-    private String idGenero;
-
     @Override
-    public void getPeliculasFiltroGeneroWS(OnPeliculasFiltroGeneroListener onPeliculasFiltroGeneroListener, String idGenero) {
-        this.onPeliculasFiltroGeneroListener = onPeliculasFiltroGeneroListener;
-        this.idGenero = idGenero;
-        URL += idGenero;
-        //TODO lanzar hilo
-        TareaSegundoPlanoFiltroGenero hilo = new TareaSegundoPlanoFiltroGenero();
-        hilo.execute();
-    }
-
-
-    class TareaSegundoPlanoFiltroGenero extends AsyncTask<String, Integer, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... strings) {
-
-            Post post = new Post();
-
-            try {
-                // Devuelve el objeto JSON
-                JSONObject listaObjetosPeliculasJSON = post.getServerDataGetObject(URL);
-                JSONArray listaPeliculasArraysJSON = listaObjetosPeliculasJSON.getJSONArray("results");
-                listaPeliculasFiltroGenero = Peliculas.getArrayListFromJSON(listaPeliculasArraysJSON);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-            // Devolver si ha ido bien o mal
-            return true;
-        }
-
-
-        @Override
-        protected void onPostExecute(Boolean respuesta) {
-
-            if (respuesta) {
-                if (listaPeliculasFiltroGenero != null && listaPeliculasFiltroGenero.size() > 0) {
-                    onPeliculasFiltroGeneroListener.onResolve(listaPeliculasFiltroGenero);
-                } else {
-                    onPeliculasFiltroGeneroListener.onReject("No hay ninguna película de este género");
+    public void getPeliculasFiltroGeneroWS(Context context, OnPeliculasFiltroGeneroListener onPeliculasFiltroGeneroListener, String idGenero) {
+        ApiClient apiClient = new ApiClient(context);
+        final Call<PeliculasApiResults> peticion = apiClient.getPeliculasFilterGenre(idGenero);
+        peticion.enqueue(new Callback<PeliculasApiResults>() {
+            @Override
+            public void onResponse(Call<PeliculasApiResults> call, Response<PeliculasApiResults> response) {
+                // Si va bien
+                if (response != null && response.body() != null) {
+                    onPeliculasFiltroGeneroListener.onResolve(new ArrayList<Peliculas>(response.body().getResults()));
                 }
             }
 
-        }
+            @Override
+            public void onFailure(Call<PeliculasApiResults> call, Throwable t) {
+                // Si va mal
+                t.printStackTrace();
+                onPeliculasFiltroGeneroListener.onReject(t.getLocalizedMessage());
+            }
+        });
+
     }
+
 
 
 }

@@ -45,7 +45,7 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
 //        Toast.makeText(getBaseContext(), idGender, Toast.LENGTH_SHORT).show(); //COGE EL ID CORRECTAMENTE
 
         peliculasFiltroGeneroPresentador = new PeliculasFiltroGeneroPresentador(this);
-        peliculasFiltroGeneroPresentador.getPeliculasFiltroGenero(idGender);
+        peliculasFiltroGeneroPresentador.getPeliculasFiltroGenero(this, idGender);
 
         cargarSpinner();
 

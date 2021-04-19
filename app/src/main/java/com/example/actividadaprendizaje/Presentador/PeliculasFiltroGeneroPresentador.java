@@ -1,5 +1,7 @@
 package com.example.actividadaprendizaje.Presentador;
 
+import android.content.Context;
+
 import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
 import com.example.actividadaprendizaje.Modelo.PeliculasFiltroGeneroModelo;
@@ -19,8 +21,8 @@ public class PeliculasFiltroGeneroPresentador implements PeliculasFiltroGeneroCo
     }
 
     @Override
-    public void getPeliculasFiltroGenero(String idGenero) {
-        peliculasFiltroGeneroModelo.getPeliculasFiltroGeneroWS(new PeliculasFiltroGeneroContrato.modelo.OnPeliculasFiltroGeneroListener() {
+    public void getPeliculasFiltroGenero(Context context, String idGenero) {
+        peliculasFiltroGeneroModelo.getPeliculasFiltroGeneroWS(context, new PeliculasFiltroGeneroContrato.modelo.OnPeliculasFiltroGeneroListener() {
             @Override
             public void onResolve(ArrayList<Peliculas> listaPeliculasGenero) {
                 peliculasFiltroGeneroVista.success(listaPeliculasGenero);

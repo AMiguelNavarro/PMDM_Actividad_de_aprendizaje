@@ -16,13 +16,6 @@ import retrofit2.Response;
 public class PeliculasModelo implements PeliculasContrato.modelo {
 
 
-    private ArrayList<Peliculas> listaPeliculasArrayList;
-    private OnPeliculasListener onPeliculasListener;
-
-    private final String URL = "https://api.themoviedb.org/3/movie/popular?api_key=9452cdfc55151f2eef8682f0e78f4a77&language=es-ES&page=1";
-//    private final String URL = "https://api.themoviedb.org/3/movie/popular?api_key=d9c4177bb1cc819d43088d25fbe2474c&language=en-US&page=1";
-//            final String URL = "http://ddragon.leagueoflegends.com/cdn/10.24.1/data/en_US/champion.json"; // TODO probar con the API LOL si funciona
-
     @Override
     public void getPeliculasWS(Context context, OnPeliculasListener onPeliculasListener) {
         ApiClient apiClient = new ApiClient(context);
