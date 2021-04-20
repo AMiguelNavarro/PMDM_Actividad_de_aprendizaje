@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
 import com.example.actividadaprendizaje.Presentador.PeliculasFiltroGeneroPresentador;
 import com.example.actividadaprendizaje.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
     private PeliculasFiltroGeneroPresentador peliculasFiltroGeneroPresentador;
+    private LinearLayout layout;
 
     private Spinner spinner;
     private String [] opcionesSpinner = {" ", "Acción", "Aventura","Animación", "Comedia","Crimen", "Documental","Drama", "Familia","Fantasía", "Historia","Terror", "Música","Misterio", "Romance",
@@ -42,10 +45,15 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
         Intent navegar = this.getIntent();
         Bundle extra = navegar.getExtras();
         String idGender = String.valueOf(extra.getInt("idGenero"));
-//        Toast.makeText(getBaseContext(), idGender, Toast.LENGTH_SHORT).show(); //COGE EL ID CORRECTAMENTE
+        String generoDescripcion = String.valueOf(extra.getString("generoDescripcion"));
+//Toast.makeText(getBaseContext(), idGender, Toast.LENGTH_SHORT).show(); //COGE EL ID CORRECTAMENTE
 
         peliculasFiltroGeneroPresentador = new PeliculasFiltroGeneroPresentador(this);
         peliculasFiltroGeneroPresentador.getPeliculasFiltroGenero(this, idGender);
+
+        layout = findViewById(R.id.layoutGenre);
+        Snackbar snackbar = Snackbar.make(layout, "GÉNERO: " + generoDescripcion, Snackbar.LENGTH_LONG);
+        snackbar.show();
 
         cargarSpinner();
 
@@ -95,90 +103,109 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
                     case "Acción":
                         idGenero = 28;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Aventura":
                         idGenero = 12;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Animación":
                         idGenero = 16;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Comedia":
                         idGenero = 35;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Crimen":
                         idGenero = 80;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Documental":
                         idGenero = 99;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Drama":
                         idGenero = 18;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Familia":
                         idGenero = 10751;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Fantasía":
                         idGenero = 14;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Historia":
                         idGenero = 36;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Terror":
                         idGenero = 27;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Música":
                         idGenero = 10402;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Misterio":
                         idGenero = 9648;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Romance":
                         idGenero = 10749;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Ciencia ficción":
                         idGenero = 878;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Película de TV":
                         idGenero = 10770;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Suspense":
                         idGenero = 53;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Bélica":
                         idGenero = 10752;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     case "Western":
                         idGenero = 37;
                         navegar.putExtra("idGenero", idGenero);
+                        navegar.putExtra("generoDescripcion", genero);
                         break;
                     default:
                         break;
 
                 }
-                Toast.makeText(parent.getContext(), genero, Toast.LENGTH_LONG).show();
                 startActivity(navegar);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(parent.getContext(), "No has seleccionado ningún género", Toast.LENGTH_SHORT).show();
+                Snackbar snackbar = Snackbar.make(layout, "No has seleccionado ningún género", Snackbar.LENGTH_LONG);
+                snackbar.show();
             }
         });
     }
