@@ -51,6 +51,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         cargarSpinner();
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_inicio);
+        bottomNavigationView.setSelectedItemId(R.id.menu_nav1);
         initBottomNavigation();
     }
 
@@ -83,11 +84,11 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.menu_nav1:
-                        Toast.makeText(PeliculasVista.this, "PROBATINA", Toast.LENGTH_SHORT).show();
                         return true;
 
                     case R.id.menu_nav2:
-                        //TODO intent a las de mayor puntuacion
+                        Intent intent = new Intent(getBaseContext(), PeliculasTopRatedVista.class);
+                        startActivity(intent);
                         return true;
                 }
                 return false;

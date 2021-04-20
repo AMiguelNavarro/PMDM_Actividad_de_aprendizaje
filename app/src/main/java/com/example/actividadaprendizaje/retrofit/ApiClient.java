@@ -43,4 +43,10 @@ public class ApiClient {
         return service.getPeliculasGenre(API_KEY, LANGUAGE, SORT_BY, INCLUDE_ADULT, INCLUDE_VIDEO, idGenre);
     }
 
+
+    public Call<PeliculasApiResults> getPeliculasTopRated() {
+        PeliculasApiRetrofit service= retrofit.create(PeliculasApiRetrofit.class);
+        return service.getPeliculasTopRated(API_KEY, LANGUAGE);
+    }
+
 }

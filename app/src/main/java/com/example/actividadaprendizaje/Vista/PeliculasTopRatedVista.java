@@ -2,6 +2,7 @@ package com.example.actividadaprendizaje.Vista;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,26 +12,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.actividadaprendizaje.Adaptador.PeliculasAdaptador;
 import com.example.actividadaprendizaje.Beans.Peliculas;
-import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
-import com.example.actividadaprendizaje.Presentador.PeliculasFiltroGeneroPresentador;
+import com.example.actividadaprendizaje.Contrato.PeliculasContrato;
+import com.example.actividadaprendizaje.Presentador.PeliculasPresentador;
+import com.example.actividadaprendizaje.Presentador.PeliculasTopRatedPresentador;
 import com.example.actividadaprendizaje.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-public class PeliculasFiltroGeneroVista extends AppCompatActivity implements PeliculasFiltroGeneroContrato.vista {
+public class PeliculasTopRatedVista extends AppCompatActivity  implements PeliculasContrato.vista {
 
+    private PeliculasTopRatedPresentador peliculasPresentador;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
-    private PeliculasFiltroGeneroPresentador peliculasFiltroGeneroPresentador;
     private RelativeLayout layout;
     private BottomNavigationView bottomNavigationView;
 
@@ -38,39 +39,27 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
     private String [] opcionesSpinner = {" ", "Acción", "Aventura","Animación", "Comedia","Crimen", "Documental","Drama", "Familia","Fantasía", "Historia","Terror", "Música","Misterio", "Romance",
             "Ciencia Ficción", "Película de TV","Suspense", "Bélica","Western"};
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_peliculas_filtradas_genero_vista_recycler);
+        setContentView(R.layout.activity_peliculas_top_rated);
 
-        Intent navegar = this.getIntent();
-        Bundle extra = navegar.getExtras();
-        String idGender = String.valueOf(extra.getInt("idGenero"));
-        String generoDescripcion = String.valueOf(extra.getString("generoDescripcion"));
-//Toast.makeText(getBaseContext(), idGender, Toast.LENGTH_SHORT).show(); //COGE EL ID CORRECTAMENTE
+        peliculasPresentador = new PeliculasTopRatedPresentador(this);
+        peliculasPresentador.getPeliculas(this);
 
-        peliculasFiltroGeneroPresentador = new PeliculasFiltroGeneroPresentador(this);
-        peliculasFiltroGeneroPresentador.getPeliculasFiltroGenero(this, idGender);
-
-        layout = findViewById(R.id.layoutGenre);
-        Snackbar snackbar = Snackbar.make(layout, "GÉNERO: " + generoDescripcion, Snackbar.LENGTH_LONG);
-        snackbar.show();
+        layout = findViewById(R.id.layout_top_rated);
 
         cargarSpinner();
 
-        bottomNavigationView = findViewById(R.id.bottom_navigation_genero);
+        bottomNavigationView = findViewById(R.id.bottom_navigation_top_rated);
+        bottomNavigationView.setSelectedItemId(R.id.menu_nav2);
         initBottomNavigation();
-
     }
 
-    @Override
-    public void success(ArrayList<Peliculas> listaPeliculasGenero) {
 
-        recycler = findViewById(R.id.recycler);
+    @Override
+    public void success(ArrayList<Peliculas> listaPeliculas) {
+        recycler = findViewById(R.id.recycler_top_rated);
         recycler.setHasFixedSize(true);
 
         gestorLayout = new GridLayoutManager(this, 3);
@@ -78,17 +67,17 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
         recycler.setLayoutManager(gestorLayout);
 
         // Crear un nuevo adaptador, que es el pintado para el usuario
-        PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculasGenero);
+        PeliculasAdaptador adaptador = new PeliculasAdaptador(listaPeliculas);
         recycler.setAdapter(adaptador);
-        
+
+
     }
 
     @Override
-    public void error(String error) {
-
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
-
+    public void error(String mensajeError) {
+        Toast.makeText(this, mensajeError, Toast.LENGTH_SHORT).show();
     }
+
 
     private void initBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -101,16 +90,12 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
                         return true;
 
                     case R.id.menu_nav2:
-                        Intent intent = new Intent(getBaseContext(), PeliculasTopRatedVista.class);
-                        startActivity(intent);
                         return true;
                 }
                 return false;
             }
         });
     }
-
-
 
     public void cargarSpinner() {
         spinner = findViewById(R.id.spinnerFiltro);
@@ -228,6 +213,9 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
 
                 }
                 startActivity(navegar);
+
+                // TODO llamar al método para que busque solo las de ese género
+                // https://developers.themoviedb.org/3/discover/movie-discover Y FILTRAR POR IDGENERO
             }
 
             @Override
@@ -237,7 +225,4 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
             }
         });
     }
-
-
 }
-
