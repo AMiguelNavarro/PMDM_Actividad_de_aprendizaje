@@ -26,4 +26,11 @@ public interface PeliculasApiRetrofit {
     );
 
 
+    @GET("movie/top_rated")
+    Call<PeliculasApiResults> getPeliculasTopRated(
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
+
+
 }
