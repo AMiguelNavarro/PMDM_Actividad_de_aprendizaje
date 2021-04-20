@@ -1,15 +1,18 @@
 package com.example.actividadaprendizaje.Vista;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +21,7 @@ import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.Contrato.PeliculasFiltroGeneroContrato;
 import com.example.actividadaprendizaje.Presentador.PeliculasFiltroGeneroPresentador;
 import com.example.actividadaprendizaje.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -27,7 +31,8 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
     private PeliculasFiltroGeneroPresentador peliculasFiltroGeneroPresentador;
-    private LinearLayout layout;
+    private RelativeLayout layout;
+    private BottomNavigationView bottomNavigationView;
 
     private Spinner spinner;
     private String [] opcionesSpinner = {" ", "Acción", "Aventura","Animación", "Comedia","Crimen", "Documental","Drama", "Familia","Fantasía", "Historia","Terror", "Música","Misterio", "Romance",
@@ -57,6 +62,9 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
 
         cargarSpinner();
 
+        bottomNavigationView = findViewById(R.id.bottom_navigation_genero);
+        initBottomNavigation();
+
     }
 
     @Override
@@ -80,6 +88,25 @@ public class PeliculasFiltroGeneroVista extends AppCompatActivity implements Pel
 
         Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void initBottomNavigation() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_nav1:
+                        Intent navegar = new Intent(getBaseContext(), PeliculasVista.class);
+                        startActivity(navegar);
+                        return true;
+
+                    case R.id.menu_nav2:
+                        //TODO intent a las de mayor puntuacion
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_nav1"
+        android:enabled="true"
+        android:icon="@drawable/icono_inicio"
+        android:title="@string/item_menu_bottom_navigation_inicio"/>
+    <item
+        android:id="@+id/menu_nav2"
+        android:enabled="true"
+        android:icon="@drawable/icono_votos_estrella"
+        android:title="@string/item_menu_bottom_navigation_mayor_puntuacion"/>
+
+</menu>
