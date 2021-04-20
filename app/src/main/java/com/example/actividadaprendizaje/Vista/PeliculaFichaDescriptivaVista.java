@@ -18,7 +18,7 @@ public class PeliculaFichaDescriptivaVista extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pelicula_ficha_descriptiva_vista);
+        setContentView(R.layout.cardview_pelicula_ficha);
 
         initComponents();
 

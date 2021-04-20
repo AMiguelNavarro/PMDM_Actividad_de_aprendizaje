@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,15 +8,14 @@
     tools:context=".Vista.PeliculasVista"
     android:orientation="vertical">
 
-
-
     <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
         android:layout_gravity="end">
-
-
 
 
         <TextView
@@ -37,7 +36,20 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/linearLayout"
+        android:layout_above="@+id/bottom_navigation"
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</LinearLayout>
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_inicio"
+        style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_navigation_menu">
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</RelativeLayout>

@@ -10,8 +10,6 @@ import com.example.actividadaprendizaje.R;
 
 public class InicioVista extends AppCompatActivity {
 
-    private static final int SCREEN = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

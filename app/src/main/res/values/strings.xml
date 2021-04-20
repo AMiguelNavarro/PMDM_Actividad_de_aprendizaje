@@ -6,4 +6,6 @@
     <string name="activity_login_vista_textfield_usuario">Usuario</string>
     <string name="activity_login_vista_text_button_iniciar_sesion">Iniciar Sesión</string>
     <string name="activity_login_vista_hint_password">Contraseña</string>
+    <string name="item_menu_bottom_navigation_inicio">INICIO</string>
+    <string name="item_menu_bottom_navigation_mayor_puntuacion">MAYOR PUNTUACIÓN</string>
 </resources>

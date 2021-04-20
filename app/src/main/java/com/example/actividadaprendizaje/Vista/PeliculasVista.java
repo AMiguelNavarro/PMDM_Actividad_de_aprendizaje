@@ -1,5 +1,6 @@
 package com.example.actividadaprendizaje.Vista;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +21,7 @@ import com.example.actividadaprendizaje.Beans.Peliculas;
 import com.example.actividadaprendizaje.Contrato.PeliculasContrato;
 import com.example.actividadaprendizaje.Presentador.PeliculasPresentador;
 import com.example.actividadaprendizaje.R;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -29,6 +32,7 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
     private RecyclerView recycler;
     private RecyclerView.LayoutManager gestorLayout;
     private ConstraintLayout layout;
+    private BottomNavigationView bottomNavigationView;
 
     private Spinner spinner;
     private String [] opcionesSpinner = {" ", "Acción", "Aventura","Animación", "Comedia","Crimen", "Documental","Drama", "Familia","Fantasía", "Historia","Terror", "Música","Misterio", "Romance",
@@ -45,6 +49,9 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         layout = findViewById(R.id.idPeliculasLayout);
 
         cargarSpinner();
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_inicio);
+        initBottomNavigation();
     }
 
 
@@ -69,6 +76,24 @@ public class PeliculasVista extends AppCompatActivity implements PeliculasContra
         Toast.makeText(this, mensajeError, Toast.LENGTH_SHORT).show();
     }
 
+
+    private void initBottomNavigation() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.menu_nav1:
+                        Toast.makeText(PeliculasVista.this, "PROBATINA", Toast.LENGTH_SHORT).show();
+                        return true;
+
+                    case R.id.menu_nav2:
+                        //TODO intent a las de mayor puntuacion
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
 
     public void cargarSpinner() {
         spinner = findViewById(R.id.spinnerFiltro);
